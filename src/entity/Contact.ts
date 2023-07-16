@@ -7,7 +7,7 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 
-enum LinkPrecedence {
+export enum LinkPrecedence {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
 }
@@ -17,16 +17,21 @@ export class Contact {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   phoneNumber: string;
 
-  @Column()
+  @Column({ nullable: true })
   email: string;
 
-  @Column()
+  @Column({ nullable: true })
   linkedId: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+    type: 'enum',
+    enum: LinkPrecedence,
+    default: LinkPrecedence.PRIMARY,
+  })
   linkPrecedence: LinkPrecedence;
 
   @CreateDateColumn()
